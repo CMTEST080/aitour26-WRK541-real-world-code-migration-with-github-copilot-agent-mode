@@ -7,6 +7,12 @@ var app = builder.Build();
 // Keep the app minimal: expose only the root endpoint. No Swagger or
 // other middleware are registered to avoid adding package dependencies at
 // this scaffold stage.
-app.MapGet("/", () => Results.Ok(new { status = "ok" }));
+if (app.Environment.IsDevelopment())
+{
+	app.UseDeveloperExceptionPage();
+}
+
+app.MapGet("/", () => Results.Ok(new { message = "Welcome to the C# minimal API root." }))
+   .WithName("Root");
 
 app.Run();
